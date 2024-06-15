@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include 'nav.html' %}
+
+    <div class="container">
+        <div class="shadow-lg p-5 edit-product-container">
+            <div class="text-center">
+                <h1 class="d-inline-block border-bottom border-3 border-primary">Add New Stock</h1>
+            </div>
+            <form action="{% url 'add_stock' %}" method="POST">
+                {% csrf_token %}
+                <div class="row mt-5">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <select class="form-select form-select-lg me-1 w-100 text-start" id="product_id" name="product_id" onchange="fetchProductDetails('id')">
+                                    <option value="Choose Product ID" disabled selected>Choose Product ID</option>
+                                    {% for product in products %}
+                                        <option value="{{ product.id }}">{{ product.id }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <!-- <select class="form-select me-1 w-100 text-start" id="product_name" name="product_name">
+                                    <option value="" disabled selected>Choose Product Name</option>
+                                    {% for product in products %}
+                                        <option value="{{ product.name }}">{{ product.name }}</option>
+                                    {% endfor %}
+                                </select> -->
+                                <select class="form-select form-select-lg me-1 w-100 text-start" id="product_name" name="product_name" onchange="fetchProductDetails('name')">
+                                    <option value="Choose Product Name" disabled selected>Choose Product Name</option>
+                                    {% for product in products %}
+                                        <option value="{{ product.name }}">{{ product.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <input name="current_stock" type="number" class="form-control form-control-lg" placeholder="Current Stock..."
+                            {% block current-stock-value %}{% endblock current-stock-value %}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <input name="min_stock_level" type="number" class="form-control form-control-lg" placeholder="Min Stock Level..."
+                            {% block min-stock-value %}{% endblock min-stock-value %}>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <input name="max_stock_level" type="number" class="form-control form-control-lg" placeholder="Max Stock Level..."
+                            {% block max-stock-value %}{% endblock max-stock-value %}>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <input name="reorder_quantity" type="number" class="form-control form-control-lg" placeholder="Reorder Quantity..."
+                            {% block reorder-quantity-value %}{% endblock reorder-quantity-value %}>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="mb-1 ms-2">Last Restocked:</label>
+                    <input name="last_restocked" type="date" class="form-control form-control-lg"
+                    {% block last-restocked %}{% endblock last-restocked %}>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-outline-info btn-lg fw-bolder add-doc-btn">Add Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // function fetchProductName() {
+        //     var productId = document.getElementById("product_id").value;
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open("GET", "/get_product_name/" + productId + "/", true);
+        //     xhr.onreadystatechange = function () {
+        //         if (xhr.readyState == 4 && xhr.status == 200) {
+        //             document.getElementById("product_name").value = xhr.responseText;
+        //         }
+        //     };
+        //     xhr.send();
+        // }
+
+        function fetchProductDetails(type) {
+            var xhr = new XMLHttpRequest();
+            var url;
+            if (type === 'id') {
+                var productId = document.getElementById("product_id").value;
+                url = "/get_product_details_by_id/" + productId + "/";
+            } else {
+                var productName = document.getElementById("product_name").value;
+                url = "/get_product_details_by_name/" + productName + "/";
+            }
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (type === 'id') {
+                        document.getElementById("product_name").value = response.name;
+                    } else {
+                        document.getElementById("product_id").value = response.id;
+                    }
+                }
+            };
+            xhr.send();
+        }
+    </script>
+{% endblock content %}

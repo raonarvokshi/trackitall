@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'nav.html' %}
+{% endblock navbar %}
+
+{% block content %}
+    <section id="home">
+        <div class="container">
+            <div class="row min-vh-100">
+                <div class="col-lg-6 d-flex flex-column align-self-center order-1 order-lg-0" data-aos="fade-right" data-aos-delay="170">
+                    <div class="wrapper">
+                        <h4 class="text-primary">Inventory Managment</h4>
+                        <h1 class="fs-3">
+                            Streamline your inventory with our easy-to-use app. 
+                            Track stock, manage orders, and optimize your supply chain effortlessly.
+                            Let's make inventory management <span class="text-primary unique-text">simple and efficient!</span>
+                        </h1>
+
+                        {% if not user.is_authenticated %}
+                            <a href="{% url 'register' %}" class="btn btn-primary btn-lg mt-3 rounded-3">
+                                Get Started for Free <i class="ms-1 fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'products' %}" class="btn btn-primary btn-lg mt-3 rounded-3">
+                                Get Started for Free &nbsp; <i class="fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-6 d-flex flex-column align-self-center mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="170">
+                    <img src="{% static 'img/home.svg' %}" alt="" class="img-fluid rounded-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="d-inline-block border-bottom border-3 border-primary" data-aos="fade-down">Features</h1>
+                <p data-aos="fade-down" data-aos-delay="200">Explore the powerful features of our app.</p>
+            </div>
+
+            <div class="row">
+                <!-- CARD 1 -->
+                <div class="col-lg-6 mt-5" data-aos="fade-right" data-aos-delay="200">
+                    <div class="shadow-lg p-5 text-center border-bottom border-4 border-primary">
+                        <i class="fa-solid fa-box text-primary icon"></i>
+                        <h5 class="card-title mt-3">
+                            Product Management
+                        </h5>
+                        <!-- <p class="mt-4">
+                            Perform CRUD operations for products, defining models with attributes like name, description, price, quantity, etc.
+                        </p> -->
+                        <ul class="list-group list-group-flush mt-4">
+                            <li class="list-group-item">Create, Read, Update, Delete products</li>
+                            <li class="list-group-item">Define models with attributes</li>
+                            <li class="list-group-item">Implement views and templates</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="col-lg-6 mt-5" data-aos="fade-left" data-aos-delay="200">
+                    <div class="shadow-lg p-5 text-center border-bottom border-4 border-warning">
+                        <i class="fa-solid fa-search text-warning icon"></i>
+                        <h5 class="card-title mt-3">
+                            Searching & Filtering
+                        </h5>
+                        <!-- <p class="mt-4">
+                            Perform CRUD operations for products, defining models with attributes like name, description, price, quantity, etc.
+                        </p> -->
+                        <ul class="list-group list-group-flush mt-4">
+                            <li class="list-group-item">Implement search functionality</li>
+                            <li class="list-group-item">Enable advanced filtering options</li>
+                            <li class="list-group-item">Intuitive UI for search & filtering</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="col-lg-6 mt-5" data-aos="fade-right" data-aos-delay="300">
+                    <div class="shadow-lg p-5 text-center border-bottom border-4 border-info">
+                        <i class="fas fa-cubes text-info icon"></i>
+                        <h5 class="mt-3">
+                            Stock Management
+                        </h5>
+                        <!-- <p class="card-text mt-4">
+                            Efficiently track stock levels for each product and update them as needed, whether receiving shipments or selling products. Receive alerts for low stock levels, ensuring timely replenishment to meet demand.
+                        </p> -->
+                        <ul class="list-group list-group-flush mt-4">
+                            <li class="list-group-item">Track stock levels for each product</li>
+                            <li class="list-group-item">Update stock levels for shipments and sales</li>
+                            <li class="list-group-item">Receive low stock alerts</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="col-lg-6 mt-5" data-aos="fade-left" data-aos-delay="300">
+                    <div class="shadow-lg p-5 text-center border-bottom border-4 border-success">
+                        <i class="fas fa-user-lock text-success icon"></i>
+                        <h5 class="mt-3">
+                            User Authentication
+                        </h5>
+                        <!-- <p class="mt-4">
+                            Ensure secure access control to the inventory management 
+                            system. Implement robust user authentication mechanisms 
+                            to verify user identities.
+                        </p> -->
+                        <ul class="list-group list-group-flush mt-4">
+                            <li class="list-group-item">Secure authentication mechanisms</li>
+                            <li class="list-group-item">Hierarchical user roles & permissions</li>
+                            <li class="list-group-item">Role-based access control (RBAC)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-5">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="d-inline-block border-bottom border-3 border-primary"
+                data-aos="fade-down">How It Works</h2>
+                <p data-aos="fade-down" data-aos-delay="150">Learn how to use our web app in a few simple steps.</p>
+            </div>
+
+            <div class="row mt-5">
+                <!-- Step 1 -->
+                <div class="col-lg-4" data-aos="fade-right">
+                    <div class="card h-100 shadow-lg">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Step 1: Sign Up</h5>
+                            <p class="card-text">Create your account to get started.</p>
+                            <img src="{% static 'img/register.png' %}" class="img-fluid" alt="Step 1">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="col-lg-4" data-aos="fade-down" data-aos-delay="150">
+                    <div class="card h-100 shadow-lg">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Step 2: Add Products</h5>
+                            <p class="card-text">Add your products to the inventory.</p>
+                            <img src="{% static 'img/add-product.png' %}" class="img-fluid mt-3" alt="Step 2">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="col-lg-4" data-aos="fade-left" data-aos-delay="150">
+                    <div class="card h-100 shadow-lg">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Step 3: Manage Orders</h5>
+                            <p class="card-text">Manage orders and track sales.</p>
+                            <img src="{% static 'img/dashboard.png' %}" class="img-fluid mt-3" alt="Step 3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="d-inline-block border-bottom border-3 border-primary" data-aos="fade-down">FAQ</h2>
+                <p data-aos="fade-down" data-aos-delay="200">Find answers to common questions.</p>
+            </div>
+            <!-- Add FAQ content here -->
+            <div class="d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-delay="200">
+
+                <!-- ITEM 1 -->
+                <div class="accordion w-50" id="accordionExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Is It Free To Use?
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <strong>Yes it is.</strong>
+                          You can start for free by creating an account and then you will
+                          have access to manage your products and your stock and so much
+                          more features that this web application offers for you.
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ITEM 2 -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Can I import my existing inventory data?
+                        </button>
+                      </h2>
+                      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <strong>Yes, you can.</strong>
+                          import your existing inventory data using our import feature. We support various 
+                          file formats such as CSV and Excel.
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ITEM 3 -->
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Can I set low stock alerts?
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          <strong>Yes, you can.</strong>
+                          set low stock alerts for products. When the stock level of a product falls below 
+                          a specified threshold, you will receive an alert to restock the item.
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ITEM 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Is my data secure?
+                          </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                          <div class="accordion-body">
+                            <strong>Yes, your data is secure.</strong>
+                            We implement robust security measures, including 
+                            encryption and regular backups, to protect your 
+                            information.
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="d-inline-block border-bottom border-3 border-primary" data-aos="fade-down">Contact Us</h2>
+                <p data-aos="fade-down" data-aos-delay="200">We'd love to hear from you!</p>
+            </div>
+
+            <div class="row py-5">
+                <div class="col-lg-4 text-center text-lg-start mb-5 mb-lg-0">
+                    <h1 class="mb-5 fs-1 fw-bolder" data-aos="fade-right">
+                        <i class="fa-solid fa-address-book contact-icon"></i>&nbsp;
+                        Contact Us
+                    </h1>
+                    <h4 class="email mb-4" data-aos="fade-right" data-aos-delay="250">
+                        <i class="fa-solid fa-envelope text-primary"></i>&nbsp;&nbsp;
+                        raonar.vokshi@gmail.com
+                    </h4>
+                    <h5 class="phone" data-aos="fade-right" data-aos-delay="350">
+                        <i class="fa-solid fa-phone text-primary"></i>&nbsp;&nbsp;
+                        +383(48) 11 22 10
+                    </h5>
+                    <div class="social-icons mt-5" data-aos="fade-right" data-aos-delay="450">
+                        <a href="https://www.linkedin.com/in/raonar-vokshi-a02a1b26a/" class="icon me-2" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/raonarvokshi/" class="icon" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-8 mx-auto mx-lg-0" data-aos="fade-left" data-aos-delay="100">
+                    <form action="{% url 'home' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-floating mb-4 text-center">
+                            <input type="text" name="full_name" class="form-control" id="name" placeholder="Full Name..." required>
+                            <label for="name">Full Name...</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Password" required>
+                            <label for="email">Your Email...</label>
+                        </div>
+
+                        <div class="mb-5">
+                            <textarea name="message" id="message" class="form-control" placeholder="Your Message" rows="4" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary btn-lg btn-custom">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer" class="py-5 bg-light">
+        <div class="container text-center fw-bolder">
+          © {{ current_year }} Our Team. All rights reserved.
+        </div>
+    </footer>
+
+    {{ redirect_to_login_immediately }}
+
+{% endblock content %}

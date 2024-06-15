@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include 'nav.html' %}
+    <div class="container pt-5">
+        <!-- Total Products Card -->
+        <div class="row mb-4 d-flex align-items-center justify-content-center mt-5 pt-5">
+            <div class="col-lg-3 col-md-6">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title">Total Products</h5>
+                                <h3>{{ products.count }}</h3>
+                            </div>
+                            <div>
+                                <i class="fas fa-boxes fa-3x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="myChart" width="400" height="300"></canvas>
+            </div>
+
+            <div class="col-lg-6">
+                <canvas id="chart2"></canvas>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 bg-light mt-3 p-5">
+                <canvas id="chart3"></canvas>
+            </div>
+        </div>
+    </div>
+      
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+    <script>
+        const ctx = document.getElementById('myChart');
+        const ctx2 = document.getElementById('chart2');
+        const ctx3 = document.getElementById('chart3');
+      
+        new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: [{% for product in products %} '{{ product.name }}', {% endfor %}],
+            datasets: [{
+              label: "Products",
+              data: [{% for product in products %} '{{product.price}}', {% endfor %}],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+        new Chart(ctx2, {
+          type: 'line',
+          data: {
+            labels: [{% for product in products %} '{{ product.name }}', {% endfor %}],
+            datasets: [{
+              label: 'Products',
+              data: [{% for product in products %} '{{ product.price }}', {% endfor %}],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                ],
+
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)',
+                ],
+
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+        new Chart(ctx3, {
+          type: 'bar',
+          data: {
+            labels: [{% for product in products %} '{{ product.name }}', {% endfor %}],
+            datasets: [{
+              label: 'Products',
+              data: [{% for product in products %} '{{ product.price }}', {% endfor %}],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(201, 203, 207, 0.2)',
+                ],
+
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)',
+                ],
+
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+    </script>
+{% endblock content %}

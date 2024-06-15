@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% include 'nav.html' %}
+
+    <div class="container">
+        <div class="shadow-lg p-5 edit-stock-container">
+            <div class="text-center">
+                <h1 class="d-inline-block border-bottom border-3 border-primary">Update Stock</h1>
+            </div>
+            <form action="{% url 'edit_stock' stock.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row mt-5">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <label for="" class="form-label">Product ID:</label>
+                                <select class="form-select form-select-lg rounded-2 me-1 w-100 text-start" id="product_id" name="product_id" onchange="fetchProductName()">
+                                    <option value="{{ stock.product.id }}" selected>{{ stock.product.id }}</option>
+                                    {% for product in products %}
+                                        {% if stock.product.id != product.id %}
+                                            <option value="{{ product.id }}">{{ product.id }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <label for="" class="form-label">Product Name:</label>
+                                <input type="text" class="form-control form-control-lg me-1 w-100 rounded-2" id="product_name" name="product_name"
+                                placeholder="Product Name..." value="{{ stock.product.name }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Current Stock:</label>
+                            <input name="current_stock" type="number" class="form-control form-control-lg" placeholder="Current Stock..."
+                            value="{{stock.current_stock}}">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Min Stock Level:</label>
+                            <input name="min_stock_level" type="number" class="form-control form-control-lg" placeholder="Min Stock Level..."
+                            value="{{ stock.min_stock_level }}">
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Max Stock Level:</label>
+                            <input name="max_stock_level" type="number" class="form-control form-control-lg" placeholder="Max Stock Level..."
+                            value="{{ stock.max_stock_level }}">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Reorder Quantity:</label>
+                            <input name="reorder_quantity" type="number" class="form-control form-control-lg" placeholder="Reorder Quantity..."
+                            value="{{ stock.reorder_quantity }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="" class="mb-1 ms-2">Last Restocked:</label>
+                    <input name="last_restocked" type="date" class="form-control form-control-lg"
+                    value="{{ stock.formatted_date }}">
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-outline-info btn-lg fw-bolder add-doc-btn">Update Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function fetchProductName() {
+            var productId = document.getElementById("product_id").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/get_product_name/" + productId + "/", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("product_name").value = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
+{% endblock content %}

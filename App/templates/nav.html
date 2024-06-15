@@ -1,0 +1,113 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top p-3" id="nav-scroll">
+  <div class="container">
+      <a href="{% url 'home' %}" class="navbar-brand fw-bolder">
+        <img src="{% static 'img/inventory-logo.png' %}" alt="" class="img-fluid logo">
+      </a>
+    <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse pt-3 pt-lg-0 fw-bold" id="navbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+        <li class="nav-item">
+          <a class="nav-link link d-inline-block
+          {% if request.path == '/' %} active {% endif %}" 
+          href="/#home">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link link d-inline-block" href="/#features">Features</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link link d-inline-block" href="/#how-it-works">How It Works</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link link d-inline-block" href="/#faq">FAQ</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link link d-inline-block" href="/#contact">Contact Us</a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        {% if not request.user.is_authenticated %}
+          <li class="nav-item">
+            <a href="{% url 'login' %}" class="nav-link link {% if request.path == '/login/' %} active {% endif %}">Log in</a>
+          </li>
+        {% endif %}
+
+        {% if not request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link link {% if request.path == '/register/' %} active {% endif %}" href="{% url 'register' %}">Register</a>
+          </li>
+        {% endif %}
+        
+        {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle 
+              {% if request.path == '/account/' or request.path == '/account/change/password/' or request.path == '/delete/account/' or request.path == '/products/' or request.path == '/add-product/' or request.path == '/products/dashboard/' or request.path == '/add-category/' or request.path == '/stocks/' or request.path == '/add-stock/' or request.path == '/stocks/dashboard/' %} 
+                active 
+              {% endif %}"
+              href="#" role="button" aria-expanded="false">
+                {{ request.user | title }}
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="{% url 'account' %}">
+                        <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Account
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item dropdown-toggle" href="#">
+                        <i class="fa-solid fa-box"></i>&nbsp;&nbsp;Products
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'products' %}"><i class="fa-solid fa-eye"></i>&nbsp;View Products</a></li>
+                        <li><a class="dropdown-item" href="{% url 'add_product' %}"><i class="fa-solid fa-plus fa-lg"></i>&nbsp;Add Products</a></li>
+                        <li><a class="dropdown-item" href="{% url 'products_dashboard' %}"><i class="fa-solid fa-chart-column fa-lg"></i>&nbsp;Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{% url 'add_category' %}"><i class="fa-solid fa-list"></i>&nbsp;Add Category</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="dropdown-item dropdown-toggle" href="#">
+                        <i class="fas fa-cubes"></i>&nbsp;&nbsp;Stock
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'stocks' %}"><i class="fa-solid fa-eye"></i>&nbsp;View Stock</a></li>
+                        <li><a class="dropdown-item" href="{% url 'add_stock' %}"><i class="fa-solid fa-plus fa-lg"></i>&nbsp;Add Stock</a></li>
+                        <li><a class="dropdown-item" href="{% url 'stocks_dashboard' %}"><i class="fa-solid fa-chart-column fa-lg"></i>&nbsp;Dashboard</a></li>
+                    </ul>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                {% if request.user.is_superuser %}
+                  <li>
+                      <a class="dropdown-item" href="#">
+                          <i class="fa-solid fa-users"></i>&nbsp;&nbsp;Manage Users
+                      </a>
+                  </li>
+                  <li>
+                      <a class="dropdown-item" href="/admin/" target="_blank">
+                          <i class="fa-solid fa-address-card"></i>&nbsp;&nbsp;Admin Panel
+                      </a>
+                  </li>
+                {% endif %}
+                {% if request.user.is_superuser %}
+                  <li><hr class="dropdown-divider"></li>
+                {% endif %}
+                <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                        <i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;Log out
+                    </a>
+                </li>
+              </ul>
+            </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
