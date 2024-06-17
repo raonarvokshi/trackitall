@@ -1,26 +1,30 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-# Create your models here.
-
+from django.utils.translation import gettext_lazy as _
 
 class Contact(models.Model):
-    full_name = models.CharField(max_length=400)
-    email = models.EmailField()
-    message = models.TextField()
+    full_name = models.CharField(max_length=400, verbose_name=_("Full Name"))
+    email = models.EmailField(verbose_name=_("Email"))
+    message = models.TextField(verbose_name=_("Message"))
+
+    class Meta:
+        verbose_name_plural = _("Contacts")
 
     def __str__(self) -> str:
         return self.full_name
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=400)
-    category = models.CharField(max_length=400)
-    price = models.FloatField()
-    description = models.TextField()
-    supplier = models.CharField(max_length=400)
-    date_added = models.DateField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=400, verbose_name=_("Name"))
+    category = models.CharField(max_length=400, verbose_name=_("Category"))
+    price = models.FloatField(verbose_name=_("Price"))
+    description = models.TextField(verbose_name=_("Description"))
+    supplier = models.CharField(max_length=400, verbose_name=_("Supplier"))
+    date_added = models.DateField(auto_now_add=True, verbose_name=_("Date Added"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("User"))
+
+    class Meta:
+        verbose_name_plural = _("Products")
 
     def __str__(self) -> str:
         return self.name
@@ -30,13 +34,16 @@ class Product(models.Model):
 
 
 class Stock(models.Model):
-    product = models.CharField(max_length=400)
-    current_stock = models.IntegerField()
-    min_stock_level = models.IntegerField()
-    max_stock_level = models.IntegerField()
-    reorder_quantity = models.IntegerField()
-    last_restocked = models.DateField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.CharField(max_length=400, verbose_name=_("Product"))
+    current_stock = models.IntegerField(verbose_name=_("Current Stock"))
+    min_stock_level = models.IntegerField(verbose_name=_("Minimum Stock Level"))
+    max_stock_level = models.IntegerField(verbose_name=_("Maximum Stock Level"))
+    reorder_quantity = models.IntegerField(verbose_name=_("Reorder Quantity"))
+    last_restocked = models.DateField(verbose_name=_("Last Restocked"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("User"))
+
+    class Meta:
+        verbose_name_plural = _("Stocks")
 
     def __str__(self) -> str:
         return f"{self.product}"
@@ -46,12 +53,12 @@ class Stock(models.Model):
 
 
 class Category(models.Model):
-    cateogry = models.CharField(max_length=100)
-    description = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cateogry = models.CharField(max_length=100, verbose_name=_("Category"))
+    description = models.TextField(verbose_name=_("Description"))
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("User"))
 
     class Meta:
-        verbose_name_plural = "categories"
+        verbose_name_plural = _("Categories")
 
     def __str__(self) -> str:
         return self.cateogry

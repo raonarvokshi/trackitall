@@ -1,15 +1,15 @@
 "use strict"
 
 document.addEventListener('DOMContentLoaded', function () {
-    var productToggle = document.querySelector('.dropdown-submenu > a');
+    const productToggle = document.querySelector('.dropdown-submenu > a');
 
     productToggle.addEventListener('click', function (e) {
         e.preventDefault();
-        var submenu = this.nextElementSibling;
-        var isShown = submenu.style.display === 'block';
+        const submenu = this.nextElementSibling;
+        const isShown = submenu.style.display === 'block';
 
         // Close all open submenus
-        var allSubmenus = document.querySelectorAll('.dropdown-submenu .dropdown-menu');
+        const allSubmenus = document.querySelectorAll('.dropdown-submenu .dropdown-menu');
         allSubmenus.forEach(function (menu) {
             menu.style.display = 'none';
         });
@@ -116,7 +116,7 @@ $(document).ready(function () {
             details: {
                 display: DataTable.Responsive.display.modal({
                     header: function (row) {
-                        var data = row.data();
+                        const data = row.data();
                         return 'Details for ' + data[0] + ' ' + data[1];
                     }
                 }),

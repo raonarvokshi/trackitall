@@ -1,3 +1,8 @@
+#faq {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+}
+
 .icon {
     font-size: 48px;
 }
@@ -141,9 +146,4 @@ input {
 .custom:hover {
     background-color: #1c7ed6;
     border-color: #1c7ed6;
-}
-
-#faq {
-    padding-top: 50px !important;
-    padding-bottom: 50px !important;
 }

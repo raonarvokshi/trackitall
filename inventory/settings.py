@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from django.conf import settings
 from pathlib import Path
 from datetime import timedelta
 import os
@@ -22,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY", "secret_key")
+SECRET_KEY = 'f32cb966ccd665e1f2ff3b0f564d90f5e265bd4c03ea23d4fac3c1af6129f269'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", True)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -54,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'inventory.urls'
@@ -110,7 +113,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'sq'
+USE_I18N = True
+USE_L10N = True
+
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
 TIME_ZONE = 'UTC'
 
@@ -125,6 +132,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -144,6 +154,30 @@ DJANGO_ADMIN_LOGS_ENABLED = True
 
 
 JAZZMIN_SETTINGS = {
+    "languages": [
+        {
+            "code": "en",
+            "name": "English",
+            "hide_in_menu": False,
+        },
+        {
+            "code": "sq",
+            "name": "Shqip",
+            "hide_in_menu": False,
+        },
+        # Heq gjuhët tjera që nuk dëshironi t'i shfaqni
+        # {
+        #     "code": "tr",
+        #     "name": "Türkçe",
+        #     "hide_in_menu": False,
+        # },
+        # {
+        #     "code": "fr",
+        #     "name": "Français",
+        #     "hide_in_menu": False,
+        # },
+        # ...
+    ],
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Admin",
 
@@ -154,13 +188,13 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Admin Panel",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-
+    "site_logo": "img/admin-panel-logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": None,
+    "login_logo": 'img/admin-panel-logo.png',
 
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": None,
+    "login_logo_dark": 'img/admin-panel-logo.png',
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
@@ -169,7 +203,7 @@ JAZZMIN_SETTINGS = {
     "site_icon": None,
 
     # Welcome text on the login screen
-    "welcome_sign": "AIMS",
+    "welcome_sign": "Welcome To Your Admin Panel",
 
     # Copyright on the footer
     "copyright": "Raonar",
@@ -274,7 +308,7 @@ JAZZMIN_SETTINGS = {
     # UI Tweaks #
     #############
     # Relative paths to custom CSS/JS scripts (must be present in static files)
-    "custom_css": None,
+    "custom_css": "css/admin.css",
     "custom_js": None,
     # Whether to link font from fonts.googleapis.com (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
@@ -294,7 +328,7 @@ JAZZMIN_SETTINGS = {
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
-    "language_chooser": False,
+    "language_chooser": True,
 }
 
 JAZZMIN_UI_TWEAKS = {
@@ -302,30 +336,30 @@ JAZZMIN_UI_TWEAKS = {
     "footer_small_text": False,
     "body_small_text": False,
     "brand_small_text": False,
-    "brand_colour": False,
+    "brand_colour": "navbar-primary",
     "accent": "accent-primary",
-    "navbar": "navbar-white navbar-light",
+    "navbar": "navbar-dark",
     "no_navbar_border": False,
     "navbar_fixed": False,
     "layout_boxed": False,
     "footer_fixed": False,
-    "sidebar_fixed": False,
+    "sidebar_fixed": True,
     "sidebar": "sidebar-dark-primary",
     "sidebar_nav_small_text": True,
     "sidebar_disable_expand": False,
     "sidebar_nav_child_indent": False,
-    "sidebar_nav_compact_style": False,
+    "sidebar_nav_compact_style": True,
     "sidebar_nav_legacy_style": False,
     "sidebar_nav_flat_style": False,
-    "theme": "flatly",
-    "dark_mode_theme": None,
+    "theme": "superhero",
+    "dark_mode_theme": "superhero",
     "button_classes": {
-        "primary": "btn-outline-primary",
-        "secondary": "btn-outline-secondary",
-        "info": "btn-info",
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-outline-info",
         "warning": "btn-warning",
         "danger": "btn-danger",
         "success": "btn-success"
     },
-    "actions_sticky_top": True
+    "actions_sticky_top": False
 }
