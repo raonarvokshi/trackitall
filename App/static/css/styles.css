@@ -92,9 +92,28 @@ input {
     bottom: 40px;
 } */
 
+.excel-btn {
+    background-color: #28a745 !important;
+}
+
+.pdf-btn {
+    background-color: #dc3545 !important;
+}
+
+.print-btn {
+    background-color: #17a2b8 !important;
+}
+
+.primary-btn {
+    background-color: #007bff !important;
+    color: #fff !important;
+    font-weight: bolder !important;
+}
+
 .form-control-sm {
-    position: relative;
-    bottom: 35px;
+    position: relative !important;
+    bottom: 35px !important;
+    margin-top: 30px !important;
 }
 
 .add-product-container {
