@@ -321,6 +321,19 @@ $(document).ready(function () {
                 },
                 targets: [0, 1, 2, 3, 4, 5]
             }
-        ]
+        ],
+        responsive: {
+            details: {
+                display: DataTable.Responsive.display.modal({
+                    header: function (row) {
+                        const data = row.data();
+                        return 'Details for ' + data[0] + ' ' + data[1];
+                    }
+                }),
+                renderer: DataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
     });
 });
