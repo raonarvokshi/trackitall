@@ -1,5 +1,5 @@
 
-# Travel Agency web application
+# Product and stock managment web application
 
 This project is a full-stack product and stock managment web application where you can add, edit and delete products or stock and also track your products and your stocks in a charts format.
 
